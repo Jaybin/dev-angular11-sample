@@ -1,0 +1,71 @@
+<p-table #customTable
+  [dataKey]="dataKey"
+  [rowHover]="true"
+  [rowsPerPageOptions]="[10,25,50]"
+  [loading]="loading"
+  [paginator]="true"
+  [value]="rows"
+  [(selection)]="selectedRows"
+  [columns]="columns"
+  [rows]="50"
+  [scrollable]="true"
+  scrollHeight="flex"
+  [virtualScroll]="true"
+  [lazy]="true"
+  [filterDelay]="0"
+  [globalFilterFields]="['id', 'Title', 'Description', 'Type', 'Date']"
+  [showCurrentPageReport]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+>
+  <ng-template pTemplate="caption">
+    <div class="d-flex align-items-center justify-content-between">
+      <span>{{caption}}</span>
+      <span class="p-input-icon-left">
+        <input pInputText type="text"
+        (input)="customTable.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th *ngFor="let column of columns" [pSortableColumn]="column.key">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <span>{{column.label}}</span>
+            <p-sortIcon [field]="column.key"></p-sortIcon>
+          </div>
+          <p-columnFilter [type]="column.type" [field]="column.key" display="menu" class="p-ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th style="width: 8rem"></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row let-columns="columns">
+    <tr class="p-selectable-row">
+      <td style="width: 3rem">
+        <p-tableCheckbox [value]="row"></p-tableCheckbox>
+      </td>
+      <td *ngFor="let column of columns">
+        {{row[column.key]}}
+      </td>
+      <td style="text-align: center; width: 8rem;">
+        <button pButton type="button" class="p-button-secondary" icon="pi pi-pencil"></button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="columns.length + 2">
+        <div class="d-flex align-items-center justify-content-center">
+          No data found.
+        </div>
+      </td>
+    </tr>
+</ng-template>
+</p-table>

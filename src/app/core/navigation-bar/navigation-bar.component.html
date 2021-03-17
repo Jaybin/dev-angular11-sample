@@ -1,0 +1,42 @@
+<div class="navigation-bar h-100 d-flex align-items-center flex-column"
+[@animationState]="isOpen ? 'open' : 'closed'">
+  <div class="d-flex align-items-center justify-content-between p-3 w-100">
+    <span class="font-weight-bold brand-font-size-std pr-2" *ngIf="isOpen">
+      {{title}}
+    </span>
+    <span>
+      <button *ngIf="isOpen" pButton pRipple type="button" icon="pi pi-arrow-left"
+      class="p-button-rounded p-button-secondary btn-size" (click)="toggleNavigationOpen()">
+      </button>
+      <button *ngIf="!isOpen" pButton pRipple type="button" icon="pi pi-arrow-right"
+      class="p-button-rounded p-button-secondary btn-size" (click)="toggleNavigationOpen()">
+      </button>
+    </span>
+  </div>
+  <div class="d-flex align-items-center justify-content-between flex-column flex-grow-1 w-100 mt-2">
+    <div class="d-flex align-items-center flex-column w-100">
+      <div class="d-flex align-items-center height-std w-100
+      cursor-pointer navigation-option navigation-font-color px-2"
+      *ngFor="let option of options" (click)="onItemClick(option)"
+      [ngClass]="{ 'navigation-active': option.active }">
+        <div class="d-flex align-items-center justify-content-center px-2">
+          <span [class]="option.icon" class="icon-font-size-std"></span>
+        </div>
+        <div *ngIf="isOpen" class="d-flex align-items-center
+        justify-content-start px-2 flex-grow-1">
+          <span class="font-weight-bold option-font-size-std">
+            {{option.label}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isOpen" class="d-flex align-items-center
+    justify-content-center w-100 navigation-font-color">
+      <span>{{version}}</span>
+    </div>
+    <div *ngIf="!isOpen" class="navigation-font-color version">
+      <h4 class="mb-0">{{title}}</h4>
+      <span>{{version}}</span>
+    </div>
+  </div>
+</div>

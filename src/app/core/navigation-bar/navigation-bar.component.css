@@ -1,0 +1,54 @@
+.navigation-bar {
+  min-width: 64px;
+  background: #454b73;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  color: #ffffff;
+  box-shadow: 1px, 0px, 3px, 1px rgba(0,0,0,0.25);
+}
+
+.brand-font-size-std {
+  font-size: 1.5rem;
+}
+
+.icon-font-size-std {
+  font-size: 2rem;
+}
+
+.option-font-size-std {
+  font-size: 1.5rem;
+}
+
+.height-std {
+  height: 4rem;
+}
+
+.navigation-font-color {
+  color: #8F93AB;
+}
+
+.btn-size {
+  height: 2rem !important;
+  width: 2rem !important;
+}
+
+.navigation-option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+  text-decoration: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.version {
+  position: relative;
+  bottom: 3rem;
+  transform: rotate(-90deg);
+  text-align: left;
+}
+
+.navigation-active {
+  border-left: 3px solid white;
+}
