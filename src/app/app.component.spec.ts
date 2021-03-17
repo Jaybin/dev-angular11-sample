@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { COMPANY_NAME } from './app.constants';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -19,13 +20,6 @@ describe('AppComponent', () => {
   it(`should have as title 'buildxact'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('buildxact');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('buildxact app is running!');
+    expect(app.title).toEqual(COMPANY_NAME);
   });
 });

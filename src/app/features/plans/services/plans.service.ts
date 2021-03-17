@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { UtilityService } from "src/app/utilities/utility.service";
 import { PLAN_TYPES, TABLE_COLUMNS } from "src/app/app.constants";
-import plansListJSON from "../../../assets/PlansList.json";
 import { IListItem, ITableColumn, ITypes } from "src/app/app.interfaces";
+import plansListJSON from "../../../../assets/PlansList.json";
 
 @Injectable({
   providedIn: 'root'

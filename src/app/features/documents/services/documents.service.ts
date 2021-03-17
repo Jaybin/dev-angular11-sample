@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { DOCUMENT_TYPES, TABLE_COLUMNS } from "src/app/app.constants";
 import { IListItem, ITypes } from "src/app/app.interfaces";
 import { UtilityService } from "src/app/utilities/utility.service";
-import documentsListJSON from "../../../assets/documentsList.json";
+import documentsListJSON from "../../../../assets/documentsList.json";
 
 @Injectable({
     providedIn: 'root'

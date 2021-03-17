@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { IListItem, ITableColumn } from 'src/app/app.interfaces';
-import { PlansService } from './plans.service';
+import { PlansService } from './services/plans.service';
 
 @Component({
   selector: 'app-plans',

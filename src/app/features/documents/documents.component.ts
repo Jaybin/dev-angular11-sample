@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { IListItem, ITableColumn } from 'src/app/app.interfaces';
-import { DocumentsService } from './documents.service';
+import { DocumentsService } from './services/documents.service';
 
 @Component({
   selector: 'app-documents',

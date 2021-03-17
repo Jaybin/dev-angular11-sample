@@ -4,6 +4,17 @@ export const COMPANY_NAME = 'Buildxact';
 
 export const APP_VERSION = '1.0.0';
 
+export const PAGE = {
+  HOME: 'home',
+  PLANS:'plans',
+  DOCUMENTS: 'documents'
+}
+
+export const NAVIGATION_BAR_STATE = {
+  OPEN: 'open',
+  CLOSED: 'closed'
+}
+
 export const TABLE_COLUMNS: IColumns = {
   ID: { key: 'id', label: 'ID', type: 'text' },
   TITLE: { key: 'Title', label: 'Title', type: 'text' },  

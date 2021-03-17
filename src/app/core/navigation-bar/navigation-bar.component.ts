@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
-import { COMPANY_NAME, APP_VERSION } from 'src/app/app.constants';
+import { COMPANY_NAME, APP_VERSION, PAGE, NAVIGATION_BAR_STATE } from 'src/app/app.constants';
 
 interface IPage {
   label: string;
@@ -66,7 +66,8 @@ export class NavigationBarComponent {
    */
   toggleNavigationOpen() {
     this.isOpen = !this.isOpen;
-    this.state = this.isOpen ? 'open' : 'closed';
+    this.state =
+    this.isOpen ? NAVIGATION_BAR_STATE.OPEN : NAVIGATION_BAR_STATE.CLOSED;
   }
 
   /**
@@ -78,14 +79,14 @@ export class NavigationBarComponent {
    */
   private navigateToPage(name: string) {
     switch(name) {
-      case 'documents':
-        this.router.navigate(['/documents']);
+      case PAGE.PLANS:
+        this.router.navigate([`/${PAGE.PLANS}`]);
         break;
-      case 'plans':
-        this.router.navigate(['/plans']);
+      case PAGE.DOCUMENTS:
+        this.router.navigate([`/${PAGE.DOCUMENTS}`]);
         break;
       default:
-        this.router.navigate(['/home']);
+        this.router.navigate([`/${PAGE.HOME}`]);
         break;
     }
   }
@@ -99,11 +100,13 @@ export class NavigationBarComponent {
    */
   private listenToRouteEvent() {
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
+      filter(event => {
+        return event instanceof NavigationEnd
+      }),
       map(() => this.activatedRoute)
-    ).subscribe(e => {
+    ).subscribe((activatedRoute: ActivatedRoute) => {
       this.options.forEach(opt => opt.active = false);
-      const url = e.firstChild?.snapshot?.url?.[0];
+      const url = activatedRoute.firstChild?.snapshot?.url?.[0];
       const option =
       this.options.find(opt => opt.label.toLowerCase() === url.path);
       if (option) option.active = true;
