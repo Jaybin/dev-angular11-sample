@@ -17,6 +17,24 @@ describe('PlansService', () => {
     expect(plansSrv).toBeDefined();
   });
 
+  describe('updatePlansCount()', () => {
+    it('should call spy', () => {
+      // @ts-ignore
+      const spy: jasmine.Spy = spyOn(plansSrv.subject, 'next');
+      plansSrv.updatePlansCount(10);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('onUpdatePlansCount()', () => {
+    it('should call spy', () => {
+      // @ts-ignore
+      const spy: jasmine.Spy = spyOn(plansSrv.subject, 'asObservable');
+      plansSrv.onUpdatePlansCount();
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('fetchPlans()', () => {
     it('should return plans', (done) => {
       const addTitleSpy: jasmine.Spy =

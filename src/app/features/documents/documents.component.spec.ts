@@ -1,4 +1,5 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { CustomTableComponent } from 'src/app/shared/custom-table/custom-table.component';
 import { DocumentsComponent } from './documents.component';
 import { DocumentsService } from './services/documents.service';
 
@@ -9,7 +10,7 @@ describe('DocumentsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DocumentsComponent ]
+      declarations: [ DocumentsComponent, CustomTableComponent ]
     })
     .compileComponents();
   });

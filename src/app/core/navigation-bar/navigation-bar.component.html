@@ -27,6 +27,9 @@
           <span class="font-weight-bold option-font-size-std">
             {{option.label}}
           </span>
+          <span *ngIf="option.active && option.count" class="px-2">
+            <p-badge [value]="option.count"></p-badge>
+          </span>
         </div>
       </div>
     </div>

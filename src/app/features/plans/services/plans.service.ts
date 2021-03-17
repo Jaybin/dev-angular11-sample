@@ -3,11 +3,13 @@ import { UtilityService } from "src/app/utilities/utility.service";
 import { PLAN_TYPES, TABLE_COLUMNS } from "src/app/app.constants";
 import { IListItem, ITableColumn, ITypes } from "src/app/app.interfaces";
 import plansListJSON from "../../../../assets/PlansList.json";
+import { Observable, Subject } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlansService {
+  private subject = new Subject<number>();
 
   /**
    * Creates an instance of PlansService
@@ -16,6 +18,26 @@ export class PlansService {
    * @memberof PlansService
    */
   constructor(private utilitySrv: UtilityService) {}
+
+  /**
+   * Emit the count value to subscribers
+   *
+   * @param {number} count
+   * @memberof PlansService
+   */
+   updatePlansCount(count: number) {
+    this.subject.next(count);
+  }
+
+  /**
+   * Start an observable stream
+   *
+   * @return {*}  {Observable<number>}
+   * @memberof PlansService
+   */
+  onUpdatePlansCount(): Observable<number> {
+    return this.subject.asObservable();
+  }
 
   /**
    * Fetches the plans json document (does it asynchronously as an example)

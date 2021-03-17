@@ -1,13 +1,18 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { COMPANY_NAME, APP_VERSION, PAGE, NAVIGATION_BAR_STATE } from 'src/app/app.constants';
+import { DocumentsService } from 'src/app/features/documents/services/documents.service';
+import { PlansService } from 'src/app/features/plans/services/plans.service';
 
 interface IPage {
+  key: string;
   label: string;
   icon: string;
   active: boolean;
+  count: number;
 }
 
 @Component({
@@ -26,16 +31,24 @@ interface IPage {
     ])
   ]
 })
-export class NavigationBarComponent {
+export class NavigationBarComponent implements OnDestroy {
   state = 'open';
   title = COMPANY_NAME;
   version = APP_VERSION;
   options: IPage[] = [
-    { label: 'Plans', icon: 'pi pi-pencil', active: false },
-    { label: 'Documents', icon: 'pi pi-file', active: false }
+    {
+      key: 'plans', label: 'Plans',
+      icon: 'pi pi-pencil', active: false, count: 0
+    },
+    {
+      key: 'documents', label: 'Documents',
+      icon: 'pi pi-file', active: false, count: 0
+    }
   ];
   isOpen = true;
   selectedValues = [];
+  plansSubscription: Subscription;
+  documentsSubscription: Subscription;
 
   /**
    * Creates an instance of NavigationBarComponent
@@ -44,9 +57,48 @@ export class NavigationBarComponent {
    * @param {ActivatedRoute} activatedRoute
    * @memberof NavigationBarComponent
    */
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+  private plansService: PlansService, private documentsSrv: DocumentsService) {
     this.listenToRouteEvent();
+    this.activatePlansSubscription();
+    this.activateDocumentsSubscription();
   }
+
+  /**
+   * Angular's OnDestroy implementation
+   *
+   * @memberof NavigationBarComponent
+   */
+  ngOnDestroy(): void {
+    if (this.plansSubscription) this.plansSubscription.unsubscribe();
+    if (this.documentsSubscription) this.documentsSubscription.unsubscribe();
+  }
+
+  /**
+   * Start a subscription to update plans count
+   *
+   * @memberof NavigationBarComponent
+   */
+  activatePlansSubscription() {
+    this.plansSubscription = this.plansService.onUpdatePlansCount()
+    .subscribe((count: number) => {
+      const option = this.options.find(opt => opt.key === PAGE.PLANS);
+      option.count = count;
+    });
+  }
+
+  /**
+   * Start a subscription to update documents count
+   *
+   * @memberof NavigationBarComponent
+   */
+  activateDocumentsSubscription() {
+    this.documentsSubscription = this.documentsSrv.onUpdateDocumentsCount()
+    .subscribe((count: number) => {
+      const option = this.options.find(opt => opt.key === PAGE.DOCUMENTS);
+      option.count = count;
+    });
+  }  
 
   /**
    * Identifies the clicked navigation menu item

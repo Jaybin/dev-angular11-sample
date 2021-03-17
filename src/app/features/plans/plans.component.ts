@@ -20,7 +20,9 @@ export class PlansComponent implements OnInit {
    * @param {PlansService} plansSrv
    * @memberof PlansComponent
    */
-  constructor(private plansSrv: PlansService,) {}
+  constructor(private plansSrv: PlansService,) {
+    this.plansSrv.updatePlansCount(this.plans.length);
+  }
 
   /**
    * Angular's OnInit implementation
@@ -30,8 +32,7 @@ export class PlansComponent implements OnInit {
   async ngOnInit() {
     this.columns = this.plansSrv.populateColumns();
     this.plans = await this.plansSrv.fetchPlans();
+    this.plansSrv.updatePlansCount(this.plans.length);
     this.loading = false;
   }
-
-  
 }

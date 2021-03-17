@@ -35,7 +35,10 @@ describe('NavigationBarComponent', () => {
       // @ts-ignore
       spy = spyOn(component, 'navigateToPage');
     })
-    const option = { label: 'Plans', icon: 'pi pi-pencil', active: false };
+    const option = {
+      key: 'plans', label: 'Plans',
+      icon: 'pi pi-pencil', active: false, count: 0
+    };
     it('should call spy', () => {
       component.onItemClick(option);
       expect(spy).toHaveBeenCalledTimes(1);

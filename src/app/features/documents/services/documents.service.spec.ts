@@ -17,6 +17,24 @@ describe('DocumentsService', () => {
     expect(documentsSrv).toBeDefined();
   });
 
+  describe('updatePlansCount()', () => {
+    it('should call spy', () => {
+      // @ts-ignore
+      const spy: jasmine.Spy = spyOn(documentsSrv.subject, 'next');
+      documentsSrv.updateDocumentsCount(10);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('onUpdatePlansCount()', () => {
+    it('should call spy', () => {
+      // @ts-ignore
+      const spy: jasmine.Spy = spyOn(documentsSrv.subject, 'asObservable');
+      documentsSrv.onUpdateDocumentsCount();
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('fetchDocuments()', () => {
     it('should return documents', (done) => {
       const addTitleSpy: jasmine.Spy =

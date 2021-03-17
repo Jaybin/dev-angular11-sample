@@ -5,6 +5,7 @@ import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { CardModule } from 'primeng/card';
 import { TooltipModule } from 'primeng/tooltip';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { TooltipModule } from 'primeng/tooltip';
     TableModule,
     BreadcrumbModule,
     CardModule,
-    TooltipModule
+    TooltipModule,
+    BadgeModule
   ],
   exports: [
     ButtonModule,
@@ -21,7 +23,8 @@ import { TooltipModule } from 'primeng/tooltip';
     TableModule,
     BreadcrumbModule,
     CardModule,
-    TooltipModule
+    TooltipModule,
+    BadgeModule
   ]
 })
 export class PrimeNgModule {}

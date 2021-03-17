@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Observable, Subject } from "rxjs";
 import { DOCUMENT_TYPES, TABLE_COLUMNS } from "src/app/app.constants";
 import { IListItem, ITypes } from "src/app/app.interfaces";
 import { UtilityService } from "src/app/utilities/utility.service";
@@ -8,6 +9,7 @@ import documentsListJSON from "../../../../assets/documentsList.json";
     providedIn: 'root'
 })
 export class DocumentsService {
+  private subject = new Subject<number>();
 
   /**
    * Creates an instance of DocumentsService
@@ -18,6 +20,26 @@ export class DocumentsService {
   constructor(private utilitySrv: UtilityService) {}
 
   /**
+   * Emit the count value to subscribers
+   *
+   * @param {number} count
+   * @memberof DocumentsService
+   */
+   updateDocumentsCount(count: number) {
+    this.subject.next(count);
+  }
+
+  /**
+   * Start an observable stream
+   *
+   * @return {*}  {Observable<number>}
+   * @memberof DocumentsService
+   */
+  onUpdateDocumentsCount(): Observable<number> {
+    return this.subject.asObservable();
+  }
+
+  /**
    * Fetches the documents json document (does it asynchronously as an example) 
    *
    * @return {Promise<IListItem[]>}
@@ -25,7 +47,7 @@ export class DocumentsService {
    */
   fetchDocuments(): Promise<IListItem[]> {
     return new Promise((resolve) => {
-      const documents: any = documentsListJSON;
+      const documents: IListItem[] = documentsListJSON;
       this.addTitle(documents);
       this.addType(documents, DOCUMENT_TYPES);
       setTimeout(() => { resolve(documents); }, 1000);
